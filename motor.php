@@ -18,12 +18,12 @@ class Motor extends Kendaraan{
         if (!is_numeric($hari) || $hari <= 0){
             throw new InvalidArgumentException("Lama sewa harus lebih dari 0 hari");
         }
-        return $this->gethargaSewa() * $hari;
+        return $this->getHargaSewa() * $hari;
     }
 
     public function getInfo(){
 
-        return parents::getInfo(). "Jenis Motor : ". $this->jenisMotor;
+        return parents::getInfo(). ", Jenis Motor : ". $this->jenisMotor;
     }
 }
 

@@ -16,7 +16,7 @@ class TransaksiSewa {
     }
 
     private function hitungTotalBiaya() {
-        return $this->kendaraan->getHargaSewa() * $this->lamaSewa;
+        return $this->kendaraan->hitungBiayaSewa($this->lamaSewa);
     }
 
     public function setPembayaran($pembayaran) {
@@ -24,7 +24,7 @@ class TransaksiSewa {
     }
 
     public function prosesTransaksi() {
-        if ($this->kendaraan->isTersedia() == false) {
+        if ($this->kendaraan->ketersediaan() == false) {
             return "Gagal: Maaf, kendaraan sedang disewa.<br>";
         }
 
@@ -35,7 +35,7 @@ class TransaksiSewa {
         $statusBayar = $this->pembayaran->bayar($this->totalBiaya);
 
         if ($statusBayar == true) {
-            $this->kendaraan->setStatus(false); 
+            $this->kendaraan->setKetersediaan(false); 
             return $this->cetakStruk();
         } else {
             return "Transaksi Gagal: Pembayaran ditolak.<br>";

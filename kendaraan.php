@@ -5,7 +5,7 @@ abstract class Kendaraan {
     protected $merk;
     protected $nomorPlat;
     protected $hargaSewa;
-    protected $ketersediaan;
+    protected $ketersediaan = true;
 
     public function __construct($nama,$merk, $nomorPlat, $hargaSewa) {
         if (!is_numeric($hargaSewa)||$hargaSewa <= 0) {
@@ -19,7 +19,7 @@ abstract class Kendaraan {
 
     abstract public function hitungBiayaSewa($hari);
 
-    public function getNama(){
+    public function getNamaKendaraan(){
         return $this->nama;
     }
 

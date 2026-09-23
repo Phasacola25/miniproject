@@ -52,11 +52,6 @@ class Pelanggan
         if ($noTelp === "") {
             throw new InvalidArgumentException("Nomor telepon tidak boleh kosong.");
         }
-
-        if (!preg_match('/^[0-9]+$/', $noTelp)) {
-            throw new InvalidArgumentException("Nomor telepon hanya boleh berisi angka.");
-        }
-
         $this->noTelp = $noTelp;
     }
 
