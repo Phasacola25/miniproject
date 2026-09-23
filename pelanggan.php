@@ -3,67 +3,79 @@
 class Pelanggan
 {
     private $idPelanggan;
-    private $nama;
+    private $namaP;
     private $noTelp;
     private $alamat;
 
-    public function getIdPelanggan()
-    {
+    public function __construct($idPelanggan,$namaP,$noTelp,$alamat) {
+        $this->setIdPelanggan($idPelanggan);
+        $this->setNama($namaP);
+        $this->setNoTelp($noTelp);
+        $this->setAlamat($alamat);
+    }
+
+    public function getIdPelanggan(){
         return $this->idPelanggan;
     }
 
-    public function setIdPelanggan($idPelanggan)
-    {
+    public function setIdPelanggan($idPelanggan){
+        if (trim($idPelanggan) === "") {
+            throw new InvalidArgumentException("ID pelanggan tidak boleh kosong.");
+        }
+
         $this->idPelanggan = $idPelanggan;
     }
 
-    public function getNama()
-    {
-        return $this->nama;
+    public function getNama(){
+        return $this->namaP;
     }
 
-    public function setNama($nama)
-    {
-        if ($nama == "") {
-            echo "Error: Nama pelanggan tidak boleh kosong.<br>";
-        } else if (is_numeric($nama)) {
-            echo "Error: Nama pelanggan tidak boleh berupa angka.<br>";
-        } else {
-            $this->nama = $nama;
+    public function setNama($namaP){
+        if (trim($namaP) === "") {
+            throw new InvalidArgumentException("Nama pelanggan tidak boleh kosong.");
         }
+
+        if (is_numeric($namaP)) {
+            throw new InvalidArgumentException("Nama pelanggan tidak boleh berupa angka.");
+        }
+
+        $this->namaP = trim($namaP);
     }
 
-    public function getNoTelp()
-    {
+    public function getNoTelp(){
         return $this->noTelp;
     }
 
-    public function setNoTelp($noTelp)
-    {
-        if (is_numeric($noTelp)) {
-            $this->noTelp = $noTelp;
-        } else {
-            echo "Error: Nomor Telepon harus berupa angka.<br>";
+    public function setNoTelp($noTelp){
+        $noTelp = trim($noTelp);
+
+        if ($noTelp === "") {
+            throw new InvalidArgumentException("Nomor telepon tidak boleh kosong.");
         }
+
+        if (!preg_match('/^[0-9]+$/', $noTelp)) {
+            throw new InvalidArgumentException("Nomor telepon hanya boleh berisi angka.");
+        }
+
+        $this->noTelp = $noTelp;
     }
 
-    public function getAlamat()
-    {
+    public function getAlamat(){
         return $this->alamat;
     }
 
-    public function setAlamat($alamat)
-    {
-        if ($alamat == "") {
-            echo "Error: Alamat tidak boleh kosong.<br>";
-        } else {
-            $this->alamat = $alamat;
+    public function setAlamat($alamat){
+        if (trim($alamat) === "") {
+            throw new InvalidArgumentException("Alamat tidak boleh kosong.");
         }
+
+        $this->alamat = trim($alamat);
     }
 
-    public function tampilkanInfoPelanggan()
-    {
-        return "ID: " . $this->idPelanggan . " | Nama: " . $this->nama . " | Telp: " . $this->noTelp . " | Alamat: " . $this->alamat;
+    public function tampilkanInfoPelanggan(){
+        return "ID: " . $this->idPelanggan .
+            " | Nama: " . $this->namaP .
+            " | Telp: " . $this->noTelp .
+            " | Alamat: " . $this->alamat;
     }
 }
-?>
