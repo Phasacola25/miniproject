@@ -1,32 +1,19 @@
 <?php
 
-// ==========================================
-// INTERFACE PEMBAYARAN
-// ==========================================
-
-interface Pembayaran
-{
+interface Pembayaran{
     public function bayar($jumlah);
     public function getMetode();
     public function getInfo($jumlah);
 }
 
-
-// ==========================================
-// CLASS TUNAI
-// ==========================================
-
-class Tunai implements Pembayaran
-{
+class Tunai implements Pembayaran{
     private $uang;
 
-    public function __construct($uang)
-    {
+    public function __construct($uang){
         $this->uang = $uang;
     }
 
-    public function bayar($jumlah)
-    {
+    public function bayar($jumlah){
         if ($this->uang >= $jumlah) {
             return true;
         } else {
@@ -34,27 +21,18 @@ class Tunai implements Pembayaran
         }
     }
 
-    public function getMetode()
-    {
+    public function getMetode(){
         return "Tunai";
     }
 
-    public function getInfo($jumlah)
-    {
+    public function getInfo($jumlah){
         $kembalian = $this->uang - $jumlah;
 
-        return "Kembalian : Rp "
-            . number_format($kembalian, 0, ',', '.');
+        return "Kembalian : Rp ". number_format($kembalian, 0, ',', '.');
     }
 }
 
-
-// ==========================================
-// CLASS E-WALLET
-// ==========================================
-
-class EWallet implements Pembayaran
-{
+class EWallet implements Pembayaran {
     private $saldo;
 
     public function __construct($saldo)
@@ -80,8 +58,7 @@ class EWallet implements Pembayaran
 
     public function getInfo($jumlah)
     {
-        return "Sisa Saldo E-Wallet : Rp "
-            . number_format($this->saldo, 0, ',', '.');
+        return "Sisa Saldo E-Wallet : Rp ". number_format($this->saldo, 0, ',', '.');
     }
 }
 
